@@ -6,8 +6,7 @@ const ItemModal = () => {
 const {open, onCloseModal, itemId} = useContext(context)
   return (
     <Modal animationDuration="400" open={open} onClose={onCloseModal} center>
-      <h2>Component Item Id </h2>
-      <p className="">ID : {itemId}</p>
+      <h3 className="component-text">Component Id : <span className="component-id">{itemId}</span></h3>
     </Modal>
   );
 };

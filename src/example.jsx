@@ -1,4 +1,4 @@
-import React, { useState, useCallback, } from "react";
+import React, { useState, useCallback } from "react";
 
 import DropZone from "./DropZone";
 import TrashDropZone from "./TrashDropZone";
@@ -9,7 +9,7 @@ import {
   handleMoveWithinParent,
   handleMoveToDifferentParent,
   handleMoveSidebarComponentIntoParent,
-  handleRemoveItemFromLayout
+  handleRemoveItemFromLayout,
 } from "./helpers";
 
 import { SIDEBAR_ITEMS, SIDEBAR_ITEM, COMPONENT, COLUMN } from "./constants";
@@ -31,8 +31,8 @@ const Container = () => {
   );
   const handleDrop = useCallback(
     (dropZone, item) => {
-      console.log('dropZone', dropZone)
-      console.log('item', item)
+      console.log("dropZone", dropZone);
+      console.log("item", item);
 
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
@@ -47,15 +47,15 @@ const Container = () => {
         // 1. Move sidebar item into page
         const newComponent = {
           id: shortid.generate(),
-          ...item.component
+          ...item.component,
         };
         const newItem = {
           id: newComponent.id,
-          type: COMPONENT
+          type: COMPONENT,
         };
         setComponents({
           ...components,
-          [newComponent.id]: newComponent
+          [newComponent.id]: newComponent,
         });
         setLayout(
           handleMoveSidebarComponentIntoParent(
@@ -64,7 +64,7 @@ const Container = () => {
             newItem
           )
         );
-        
+
         return;
       }
 
@@ -119,7 +119,7 @@ const Container = () => {
       />
     );
   };
-  
+
   // dont use index for key when mapping over items
   // causes this issue - https://github.com/react-dnd/react-dnd/issues/342
   return (
@@ -139,7 +139,7 @@ const Container = () => {
                 <DropZone
                   data={{
                     path: currentPath,
-                    childrenCount: layout.length
+                    childrenCount: layout.length,
                   }}
                   onDrop={handleDrop}
                   path={currentPath}
@@ -151,7 +151,7 @@ const Container = () => {
           <DropZone
             data={{
               path: `${layout.length}`,
-              childrenCount: layout.length
+              childrenCount: layout.length,
             }}
             onDrop={handleDrop}
             isLast
@@ -160,11 +160,11 @@ const Container = () => {
 
         <TrashDropZone
           data={{
-            layout
+            layout,
           }}
           onDrop={handleDropToTrashBin}
         />
-        <LayoutObjectData layoutData={layout}/>
+        <LayoutObjectData layoutData={layout} />
       </div>
     </div>
   );
