@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
+import ItemModal from "./ItemModal";
 
 const style = {
   border: "1px dashed black",
@@ -8,9 +9,18 @@ const style = {
   backgroundColor: "white",
   cursor: "move"
 };
-const Component = ({ data, components, path }) => {
-  const ref = useRef(null);
 
+const Component = ({ data, components, path }) => {
+  // Modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  function closeModal (){
+    setModalIsOpen(false)
+  }
+  const openModal = () => {
+    setModalIsOpen(true)
+  }
+  const ref = useRef(null);
+console.log(modalIsOpen);
   const [{ isDragging }, drag] = useDrag({
     item: { type: COMPONENT, id: data.id, path },
     collect: monitor => ({
@@ -23,14 +33,17 @@ const Component = ({ data, components, path }) => {
 
   const component = components[data.id];
 
+
   return (
     <div
       ref={ref}
       style={{ ...style, opacity }}
       className="component draggable"
+      onClick={()=>openModal()}
     >
       <div>{data.id}</div>
       <div>{component.content}</div>
+      <ItemModal itemId={data.id} modalIsOpen={modalIsOpen} closeModal={closeModal}/>
     </div>
   );
 };
