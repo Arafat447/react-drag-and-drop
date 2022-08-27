@@ -4,13 +4,15 @@ import Example from "./example";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 
+
 import "./styles.css";
+import ContextProvider from "./ContextProvider";
 
 function App() {
   return (
     <div className="App">
       <DndProvider backend={Backend}>
-        <Example />
+        <ContextProvider/>
       </DndProvider>
     </div>
   );

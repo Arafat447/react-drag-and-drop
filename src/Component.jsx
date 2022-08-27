@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
+import { context } from "./ContextProvider";
 import ItemModal from "./ItemModal";
 
 const style = {
@@ -12,11 +13,12 @@ const style = {
 
 const Component = ({ data, components, path }) => {
   // Modal
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const closeModal = ()=> {
-    setModalIsOpen(false)
-  }
-  
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const closeModal = ()=> {
+  //   setModalIsOpen(false)
+  // }
+  // const onOpenModal = useContext(context)
+
   const ref = useRef(null);
 
   const [{ isDragging }, drag] = useDrag({
@@ -30,19 +32,21 @@ const Component = ({ data, components, path }) => {
   drag(ref);
 
   const component = components[data.id];
-
+  const { onOpenModal,setItemId } = useContext(context);
 
   return (
-    <div
-      ref={ref}
-      style={{ ...style, opacity }}
-      className="component draggable"
-      onClick={()=>setModalIsOpen(true)}
-    >
-      <div>{data.id}</div>
-      <div>{component.content}</div>
-      <ItemModal itemId={data.id} modalIsOpen={modalIsOpen} closeModal={closeModal}/>
-    </div>
+    <>
+      <div
+        ref={ref}
+        style={{ ...style, opacity }}
+        className="component draggable"
+        onClick={()=>{onOpenModal(data.id)}}
+      >
+        <div>{data.id}</div>
+        <div>{component.content}</div>
+      </div>
+      <ItemModal  />
+    </>
   );
 };
 export default Component;
