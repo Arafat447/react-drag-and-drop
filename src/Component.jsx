@@ -7,25 +7,23 @@ const style = {
   border: "1px dashed black",
   padding: "0.5rem 1rem",
   backgroundColor: "white",
-  cursor: "move"
+  cursor: "move",
 };
 
 const Component = ({ data, components, path }) => {
   // Modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  function closeModal (){
+  const closeModal = ()=> {
     setModalIsOpen(false)
   }
-  const openModal = () => {
-    setModalIsOpen(true)
-  }
+  
   const ref = useRef(null);
-console.log(modalIsOpen);
+
   const [{ isDragging }, drag] = useDrag({
     item: { type: COMPONENT, id: data.id, path },
-    collect: monitor => ({
-      isDragging: monitor.isDragging()
-    })
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   const opacity = isDragging ? 0 : 1;
@@ -39,7 +37,7 @@ console.log(modalIsOpen);
       ref={ref}
       style={{ ...style, opacity }}
       className="component draggable"
-      onClick={()=>openModal()}
+      onClick={()=>setModalIsOpen(true)}
     >
       <div>{data.id}</div>
       <div>{component.content}</div>
