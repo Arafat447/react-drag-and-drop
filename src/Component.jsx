@@ -32,7 +32,7 @@ const Component = ({ data, components, path }) => {
   drag(ref);
 
   const component = components[data.id];
-  const { onOpenModal,setItemId } = useContext(context);
+  const { onOpenModal } = useContext(context);
 
   return (
     <>

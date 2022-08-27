@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, } from "react";
 
 import DropZone from "./DropZone";
 import TrashDropZone from "./TrashDropZone";
@@ -14,13 +14,14 @@ import {
 
 import { SIDEBAR_ITEMS, SIDEBAR_ITEM, COMPONENT, COLUMN } from "./constants";
 import shortid from "shortid";
+import { context } from "./ContextProvider";
+import LayoutObjectData from "./LayoutObjectData";
 
 const Container = () => {
   const initialLayout = initialData.layout;
   const initialComponents = initialData.components;
   const [layout, setLayout] = useState(initialLayout);
   const [components, setComponents] = useState(initialComponents);
-
   const handleDropToTrashBin = useCallback(
     (dropZone, item) => {
       const splitItemPath = item.path.split("-");
@@ -28,7 +29,6 @@ const Container = () => {
     },
     [layout]
   );
-
   const handleDrop = useCallback(
     (dropZone, item) => {
       console.log('dropZone', dropZone)
@@ -64,6 +64,7 @@ const Container = () => {
             newItem
           )
         );
+        
         return;
       }
 
@@ -118,7 +119,7 @@ const Container = () => {
       />
     );
   };
-
+  
   // dont use index for key when mapping over items
   // causes this issue - https://github.com/react-dnd/react-dnd/issues/342
   return (
@@ -163,6 +164,7 @@ const Container = () => {
           }}
           onDrop={handleDropToTrashBin}
         />
+        <LayoutObjectData layoutData={layout}/>
       </div>
     </div>
   );

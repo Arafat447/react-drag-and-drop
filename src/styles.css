@@ -114,3 +114,6 @@ body {
 .react-responsive-modal-overlay {
   background: rgba(0, 0, 0, 0.1);
 }
+.text-area-value {
+  margin: 10px;;
+}

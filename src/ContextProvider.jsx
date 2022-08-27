@@ -3,8 +3,7 @@ import Example from "./example";
 export const context = createContext();
 const ContextProvider = () => {
   const [open, setOpen] = useState(false);
-  const [itemId,setItemId] = useState("")
-console.log(itemId);
+  const [itemId,setItemId] = useState("");
   const onOpenModal = (id) => {
     setItemId(id)
     setOpen(true)
